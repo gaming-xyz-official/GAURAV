@@ -1,0 +1,36 @@
+@echo off
+echo Unlocking Phone Pin...
+timeout /t 2 >nul
+
+cd /d C:\adb\platform-tools
+
+:: PIN
+adb shell input keyevent 26
+timeout /t 1 >nul
+
+adb shell input swipe 500 1700 500 400 300
+timeout /t 1 >nul
+
+adb shell input keyevent 14
+adb shell input keyevent 7
+adb shell input keyevent 7
+adb shell input keyevent 8
+adb shell input keyevent 8
+adb shell input keyevent 9
+timeout /t 2 >nul
+
+:: Open IG once
+adb shell monkey -p com.instagram.android 1
+timeout /t 4 >nul
+
+:: Safe tap 
+adb shell input tap 400 2300
+timeout /t 2 >nul
+
+:loop
+
+:: Swipe to next reel
+adb shell input swipe 500 1700 500 400 300
+timeout /t 10 >nul
+
+goto loop
